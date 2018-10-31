@@ -23,7 +23,7 @@ class App extends Component {
         reactDOM.findDOMNode(this.refs.textInput).value = '';
     }
 
-    renderTasks() {
+    renderNames() {
         return this.props.names.map((name) => (
             <Name key={name._id} name={name} />
         ));
@@ -45,7 +45,7 @@ class App extends Component {
                 </header>
 
                 <ul>
-                    {this.renderTasks()}
+                    {this.renderNames()}
                 </ul>
             </div>
         );
