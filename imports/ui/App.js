@@ -12,15 +12,21 @@ class App extends Component {
         event.preventDefault();
 
         //Find the text field via the React ref
-        const data = reactDOM.findDOMNode(this.refs.textInput).value.trim();
+        const data = reactDOM.findDOMNode(this.refs.firstN).value.trim();
+        const data1 = reactDOM.findDOMNode(this.refs.lastN).value.trim();
+        const data2 = reactDOM.findDOMNode(this.refs.ssn).value.trim();
 
         Names.insert({
             firstName: data,
+            lastName: data1,
+            ssn: data2,
             createdAt: new Date(), // current time
         });
 
         // Clear form
-        reactDOM.findDOMNode(this.refs.textInput).value = '';
+        reactDOM.findDOMNode(this.refs.firstN).value = '';
+        reactDOM.findDOMNode(this.refs.lastN).value = '';
+        reactDOM.findDOMNode(this.refs.ssn).value = '';
     }
 
     renderNames() {
@@ -35,11 +41,25 @@ class App extends Component {
                 <header>
                     <h1>Name List</h1>
 
-                    <form className="new-name" onSubmit={this.handleSubmit.bind(this)} >
+                    <form className="new-name">
                         <input
                             type="text"
-                            ref="textInput"
-                            placeholder="Type to add new first names"
+                            ref="firstN"
+                            placeholder="Add new first name"
+                        />
+                        <input
+                            type="text"
+                            ref="lastN"
+                            placeholder="Add new last name"
+                        />
+                        <input
+                            type="number"
+                            ref="ssn"
+                            placeholder="Add your Social Security Number"
+                        />
+                        <input
+                            type="submit" 
+                            onClick={this.handleSubmit.bind(this)}
                         />
                     </form>
                 </header>

@@ -33,7 +33,7 @@ export default class Name extends Component {
                     onClick={this.toggleChecked.bind(this)}
                 />
 
-                <span className="text">{this.props.name.firstName} {this.props.name.lastName}</span>
+                <span className="text">{this.props.name.firstName} {this.props.name.lastName} {this.props.name.ssn}</span>
             </li>
         );
     }
