@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 
 import { Names } from '../api/names.js';
 
@@ -6,13 +7,15 @@ import { Names } from '../api/names.js';
 export default class Name extends Component {
     toggleChecked() {
         // Set the checked property to the opposite of its current value
-        Names.update(this.props.name._id, {
-            $set: { checked: !this.props.name.checked }, 
-        });
+        // Names.update(this.props.name._id, {
+        //     $set: { checked: !this.props.name.checked }, 
+        Meteor.call('names.setChecked', this.props.name._id, !this.props.name.checked);
+        // });
     }
     
     deleteThisName() {
-        Names.remove(this.props.name._id);
+        // Names.remove(this.props.name._id);
+        Meteor.call('names.remove', this.props.name._id);
     }
     
     render() {

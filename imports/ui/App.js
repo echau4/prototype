@@ -18,14 +18,16 @@ class App extends Component {
         const data1 = reactDOM.findDOMNode(this.refs.lastN).value.trim();
         const data2 = reactDOM.findDOMNode(this.refs.ssn).value.trim();
 
-        Names.insert({
-            firstName: data,
-            lastName: data1,
-            ssn: data2,
-            createdAt: new Date(), // current time
-            owner: Meteor.userId(), // _id of logged in user
-            username: Meteor.user().username, // username of logged in user
-        });
+        // Names.insert({
+        //     firstName: data,
+        //     lastName: data1,
+        //     ssn: data2,
+        //     createdAt: new Date(), // current time
+        //     owner: Meteor.userId(), // _id of logged in user
+        //     username: Meteor.user().username, // username of logged in user
+        // });
+
+        Meteor.call('names.insert', text);
 
         // Clear form
         reactDOM.findDOMNode(this.refs.firstN).value = '';
