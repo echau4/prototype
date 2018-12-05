@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import reactDOM from 'react-dom';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { Names } from '../api/names.js';
 
 import Name from './Name.js';
+import AccountsUIWrapper from './AccountsUIWrapper.js';
 
 //App component - represents the whole app
 class App extends Component {
@@ -21,6 +23,8 @@ class App extends Component {
             lastName: data1,
             ssn: data2,
             createdAt: new Date(), // current time
+            owner: Meteor.userId(), // _id of logged in user
+            username: Meteor.user().username, // username of logged in user
         });
 
         // Clear form
@@ -40,8 +44,11 @@ class App extends Component {
             <div className="container">
                 <header>
                     <h1>Name List</h1>
-
-                    <form className="new-name">
+                    
+                    <AccountsUIWrapper />
+                    
+                    { this.props.currentUser ? 
+                    <form className="new-name" >
                         <input
                             type="text"
                             ref="firstN"
@@ -61,7 +68,8 @@ class App extends Component {
                             type="submit" 
                             onClick={this.handleSubmit.bind(this)}
                         />
-                    </form>
+                    </form> : ''
+                    }
                 </header>
 
                 <ul>
@@ -75,5 +83,6 @@ class App extends Component {
 export default withTracker(() => {
     return {
         names: Names.find({}, { sort: { createdAt: -1 } }).fetch(),
+        currentUser: Meteor.user(),
     };
 })(App);
