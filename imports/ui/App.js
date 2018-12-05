@@ -27,7 +27,7 @@ class App extends Component {
         //     username: Meteor.user().username, // username of logged in user
         // });
 
-        Meteor.call('names.insert', text);
+        Meteor.call('names.insert', data, data1, data2);
 
         // Clear form
         reactDOM.findDOMNode(this.refs.firstN).value = '';
@@ -36,9 +36,23 @@ class App extends Component {
     }
 
     renderNames() {
-        return this.props.names.map((name) => (
-            <Name key={name._id} name={name} />
-        ));
+    //     return this.props.names.map((name) => (
+    //         <Name key={name._id} name={name} />
+    //     ));
+    let filteredNames = this.props.names;
+
+    return filteredNames.map((name) => {
+        const currentUserId = this.props.currentUser && this.props.currentUser._id;
+        const showPrivateButton = name.owner === currentUserId;
+
+        return (
+            <Name 
+            key={name._id}
+            name={name}
+            showPrivateButton={showPrivateButton}
+            />
+        );
+    });
     }
 
     render() {
@@ -83,6 +97,8 @@ class App extends Component {
 }
 
 export default withTracker(() => {
+    Meteor.subscribe('names');
+
     return {
         names: Names.find({}, { sort: { createdAt: -1 } }).fetch(),
         currentUser: Meteor.user(),
