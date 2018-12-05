@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import classnames from 'classnames';
 
 import { Names } from '../api/names.js';
 
@@ -18,10 +19,16 @@ export default class Name extends Component {
         Meteor.call('names.remove', this.props.name._id);
     }
     
+    togglePrivate() {
+        Meteor.call('names.setPrivate', this.props.name._id, ! this.props.name.private);
+    }
+
     render() {
         // Give tasks a different className when they are checked off,
         // so that we can style them nicely in css
-        const nameClassName = this.props.name.checked ? 'checked' : '';
+        const nameClassName = classnames({
+            private: this.props.name.private,
+        });
 
         return (
             <li className={nameClassName}>
@@ -35,6 +42,12 @@ export default class Name extends Component {
                     checked={!!this.props.name.checked}
                     onClick={this.toggleChecked.bind(this)}
                 /> */}
+
+                { this.props.showPrivateButton ? (
+                    <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
+                    { this.props.name.private ? 'Private' : 'Public' }
+                    </button>
+                ) : ''}
 
                 <span className="text">
                     <strong>{this.props.name.username}</strong>: {this.props.name.firstName} {this.props.name.lastName} {this.props.name.ssn}
