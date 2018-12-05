@@ -14,9 +14,9 @@ class App extends Component {
         event.preventDefault();
 
         //Find the text field via the React ref
-        const data = reactDOM.findDOMNode(this.refs.firstN).value.trim();
-        const data1 = reactDOM.findDOMNode(this.refs.lastN).value.trim();
-        const data2 = reactDOM.findDOMNode(this.refs.ssn).value.trim();
+        const data = reactDOM.findDOMNode(this.refs.firstN).value.trim().toString();
+        const data1 = reactDOM.findDOMNode(this.refs.lastN).value.trim().toString();
+        const data2 = Number(reactDOM.findDOMNode(this.refs.ssn).value.trim());
 
         // Names.insert({
         //     firstName: data,

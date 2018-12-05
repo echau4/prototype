@@ -19,9 +19,9 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'names.insert'(data, data1, data2) {
-        // check(data, String);
-        // check(data1, String);
-        // check(data2, Number);
+        check(data, String);
+        check(data1, String);
+        check(data2, Number);
 
         // Make sure the user is logged in before inserting a task
         if (! this.userId) {
