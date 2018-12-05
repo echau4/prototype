@@ -26,14 +26,16 @@ export default class Name extends Component {
                     &times;
                 </button> 
                 
-                <input
+                {/* <input
                     type="checkbox"
                     readOnly
                     checked={!!this.props.name.checked}
                     onClick={this.toggleChecked.bind(this)}
-                />
+                /> */}
 
-                <span className="text">{this.props.name.firstName} {this.props.name.lastName} {this.props.name.ssn}</span>
+                <span className="text">
+                    <strong>{this.props.name.username}</strong>: {this.props.name.firstName} {this.props.name.lastName} {this.props.name.ssn}
+                </span>
             </li>
         );
     }
